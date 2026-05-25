@@ -3,259 +3,325 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta property="og:title" content="이 결정, 해야 해 말아야 해? 🤔" />
+  <meta property="og:title" content="이 결정, 해야 해 말아야 해? ⚖️" />
   <meta property="og:description" content="10가지 질문으로 고민되는 결정을 도와드립니다" />
   <meta property="og:image" content="https://sauuri.github.io/should-i-do-it/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
   <meta property="og:url" content="https://sauuri.github.io/should-i-do-it/" />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
-  <title>이 결정, 해야 해 말아야 해? 🤔</title>
+  <title>이 결정, 해야 해 말아야 해?</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       min-height: 100vh;
-      background: #0a0a08;
+      background: #020d08;
       font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
-      color: #fef3c7;
+      color: #d1fae5;
       overflow-x: hidden;
       display: flex; align-items: center; justify-content: center;
     }
     body::before {
       content: '';
       position: fixed; inset: 0;
-      background: radial-gradient(ellipse at 60% 10%, #d9770618 0%, transparent 60%),
-                  radial-gradient(ellipse at 20% 90%, #92400e18 0%, transparent 60%);
+      background: radial-gradient(ellipse at 65% 10%, #10b98118 0%, transparent 55%),
+                  radial-gradient(ellipse at 20% 90%, #06402018 0%, transparent 55%);
       pointer-events: none; z-index: 0;
     }
-
-    /* 배경 점선 패턴 */
     body::after {
       content: '';
       position: fixed; inset: 0;
-      background-image: radial-gradient(#f59e0b08 1px, transparent 1px);
-      background-size: 30px 30px;
+      background-image: radial-gradient(#10b98108 1px, transparent 1px);
+      background-size: 28px 28px;
       pointer-events: none; z-index: 0;
+    }
+
+    .particles { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+    .particle {
+      position: absolute; opacity: 0;
+      animation: floatUp var(--dur, 8s) var(--delay, 0s) infinite ease-in;
+    }
+    @keyframes floatUp {
+      0%   { transform: translateY(100vh) scale(0.5) rotate(0deg); opacity: 0; }
+      10%  { opacity: 0.45; }
+      90%  { opacity: 0.15; }
+      100% { transform: translateY(-10vh) scale(1) rotate(360deg); opacity: 0; }
+    }
+    @keyframes confettiFall {
+      0%   { transform: translateY(0) rotate(0); opacity: 1; }
+      100% { transform: translateY(105vh) rotate(720deg); opacity: 0; }
     }
 
     .container { position: relative; z-index: 1; width: 100%; max-width: 480px; padding: 20px; }
 
-    /* INTRO */
-    .intro { text-align: center; padding: 40px 20px; }
-    .intro .icon { font-size: 72px; display: block; margin-bottom: 20px; animation: wobble 2s ease-in-out infinite; }
-    @keyframes wobble {
-      0%, 100% { transform: rotate(-5deg); }
-      50% { transform: rotate(5deg); }
+    /* ── INTRO ── */
+    .intro-card {
+      background: #04120a;
+      border: 1px solid #1a3a22;
+      border-radius: 28px;
+      padding: 44px 28px;
+      text-align: center;
+      position: relative; overflow: hidden;
     }
-    .intro h1 {
-      font-size: 26px; font-weight: 800; margin-bottom: 8px;
-      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    .intro-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, #10b98122 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .intro-icon { font-size: 72px; display: block; margin-bottom: 20px; animation: tilt 2.5s ease-in-out infinite; }
+    @keyframes tilt {
+      0%, 100% { transform: rotate(-8deg) scale(1); }
+      50%       { transform: rotate(8deg) scale(1.06); }
+    }
+    .intro-title {
+      font-size: 28px; font-weight: 800; margin-bottom: 6px;
+      background: linear-gradient(135deg, #34d399, #10b981);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
-    .intro p { font-size: 15px; color: #78624a; line-height: 1.8; margin-bottom: 32px; }
-    .intro p strong { color: #fbbf24; }
+    .intro-tagline { font-size: 13px; color: #2a5a38; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 20px; }
+    .intro-desc { font-size: 15px; color: #4a7a58; line-height: 1.85; margin-bottom: 16px; }
+    .intro-desc strong { color: #34d399; }
+    .intro-note {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #0a1e10; border: 1px solid #1a3a22;
+      border-radius: 50px; padding: 6px 16px;
+      font-size: 12px; color: #3a6a48;
+      margin-bottom: 30px;
+    }
+    .start-btn {
+      background: linear-gradient(135deg, #059669, #10b981);
+      color: white; border: none;
+      padding: 16px 52px; border-radius: 50px;
+      font-size: 18px; font-weight: 700; cursor: pointer;
+      transition: all 0.3s; font-family: inherit;
+      box-shadow: 0 6px 24px #10b98133;
+    }
+    .start-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 32px #10b98155; }
+    .start-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none; }
 
-    /* DECISION INPUT */
-    .input-screen { display: none; }
-    .input-screen.active { display: block; }
+    /* ── INPUT SCREEN ── */
+    .screen { display: none; }
+    .screen.active { display: block; }
+
     .input-card {
-      background: #141208;
-      border: 1px solid #3a2a10;
+      background: #04120a;
+      border: 1px solid #1a3a22;
       border-radius: 24px;
       padding: 32px 26px;
+      position: relative; overflow: hidden;
     }
-    .input-card h2 { font-size: 20px; font-weight: 700; margin-bottom: 8px; color: #fef3c7; }
-    .input-card p { font-size: 14px; color: #78624a; margin-bottom: 20px; }
+    .input-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, #10b98116 0%, transparent 55%);
+      pointer-events: none;
+    }
+    .input-card h2 { font-size: 22px; font-weight: 800; margin-bottom: 8px; color: #d1fae5; }
+    .input-card p { font-size: 14px; color: #3a6a48; margin-bottom: 20px; }
     .input-card textarea {
       width: 100%;
-      background: #0a0a08;
-      border: 1.5px solid #3a2a10;
+      background: #020d08;
+      border: 1.5px solid #1a3a22;
       border-radius: 14px;
       padding: 16px;
       font-size: 16px;
-      color: #fef3c7;
+      color: #d1fae5;
       font-family: inherit;
       resize: none;
-      height: 100px;
+      height: 90px;
       outline: none;
       transition: border-color 0.2s;
     }
-    .input-card textarea:focus { border-color: #f59e0b; }
-    .input-card textarea::placeholder { color: #3a2a10; }
+    .input-card textarea:focus { border-color: #10b981; box-shadow: 0 0 0 3px #10b98115; }
+    .input-card textarea::placeholder { color: #1a3a22; }
     .input-examples {
-      display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; margin-bottom: 24px;
+      display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; margin-bottom: 28px;
     }
     .example-chip {
-      background: #1e180a; border: 1px solid #3a2a10; border-radius: 50px;
-      padding: 6px 14px; font-size: 13px; color: #a08050; cursor: pointer;
+      background: #0a1e10; border: 1px solid #1a3a22; border-radius: 50px;
+      padding: 6px 14px; font-size: 13px; color: #4a7a58; cursor: pointer;
       transition: all 0.2s;
     }
-    .example-chip:hover { border-color: #f59e0b; color: #fbbf24; }
+    .example-chip:hover { border-color: #10b981; color: #34d399; background: #0f2a18; }
 
-    /* CARD */
-    .card {
-      background: #141208;
-      border: 1px solid #3a2a10;
-      border-radius: 24px;
-      padding: 32px 26px;
-      box-shadow: 0 8px 40px #f59e0b0a;
+    /* ── QUIZ ── */
+    .quiz-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+    .back-btn {
+      background: #0a1e10; border: 1.5px solid #1a3a22; border-radius: 12px;
+      padding: 8px 14px; font-size: 18px; cursor: pointer;
+      transition: all 0.2s; flex-shrink: 0; color: #4a7a58; font-family: inherit;
+      line-height: 1;
+    }
+    .back-btn:hover { border-color: #10b981; color: #34d399; }
+    .back-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+    .progress-wrap { flex: 1; }
+    .progress-info { display: flex; justify-content: space-between; margin-bottom: 8px; }
+    .progress-label { font-size: 12px; color: #3a6a48; font-weight: 700; }
+    .progress-count { font-size: 12px; color: #3a6a48; }
+    .progress-bar { width: 100%; height: 4px; background: #0a1e10; border-radius: 2px; overflow: hidden; }
+    .progress-fill {
+      height: 100%; background: linear-gradient(90deg, #059669, #10b981, #34d399);
+      border-radius: 2px; transition: width 0.4s ease;
+      box-shadow: 0 0 8px #10b98155;
     }
 
-    /* PROGRESS */
-    .progress-wrap { margin-bottom: 22px; }
-    .progress-info { display: flex; justify-content: space-between; margin-bottom: 8px; }
-    .progress-label { font-size: 12px; color: #78624a; font-weight: 700; }
-    .progress-count { font-size: 12px; color: #78624a; }
-    .progress-bar { width: 100%; height: 4px; background: #1e180a; border-radius: 2px; overflow: hidden; }
-    .progress-fill { height: 100%; background: linear-gradient(90deg, #d97706, #f59e0b, #fbbf24); border-radius: 2px; transition: width 0.4s ease; }
-
-    /* QUESTION */
+    .card {
+      background: #04120a;
+      border: 1px solid #1a3a22;
+      border-radius: 24px;
+      padding: 32px 26px;
+      box-shadow: 0 8px 40px #10b9810a;
+    }
     .question-card { animation: slideIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); }
     @keyframes slideIn {
       from { opacity: 0; transform: translateX(30px) scale(0.97); }
-      to { opacity: 1; transform: translateX(0) scale(1); }
+      to   { opacity: 1; transform: translateX(0)   scale(1);    }
     }
-
     .decision-tag {
       display: inline-flex; align-items: center; gap: 6px;
-      background: #1e180a; border: 1px solid #3a2a10;
+      background: #0a1e10; border: 1px solid #1a3a22;
       border-radius: 50px; padding: 6px 14px;
-      font-size: 13px; color: #a08050;
+      font-size: 13px; color: #4a7a58;
       margin-bottom: 20px; max-width: 100%;
       overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
     }
-
     .q-emoji { font-size: 38px; display: block; margin-bottom: 14px; }
-    .q-num { font-size: 11px; font-weight: 700; color: #f59e0b88; letter-spacing: 1px; margin-bottom: 8px; }
-    .q-text { font-size: 19px; font-weight: 700; line-height: 1.5; margin-bottom: 24px; color: #fef3c7; }
-
+    .q-num { font-size: 11px; font-weight: 700; color: #10b98188; letter-spacing: 1px; margin-bottom: 8px; }
+    .q-text { font-size: 19px; font-weight: 700; line-height: 1.5; margin-bottom: 24px; color: #d1fae5; }
     .options { display: flex; flex-direction: column; gap: 10px; }
     .option-btn {
-      background: #0e0d08;
-      border: 1.5px solid #3a2a10;
+      background: #020d08;
+      border: 1.5px solid #1a3a22;
       border-radius: 14px;
       padding: 14px 16px;
       text-align: left; cursor: pointer;
       transition: all 0.2s;
       display: flex; align-items: center; gap: 12px;
-      font-size: 15px; color: #a08050; font-family: inherit;
+      font-size: 15px; color: #4a7a58; font-family: inherit;
     }
-    .option-btn:hover { background: #1a1608; border-color: #f59e0b; color: #fef3c7; transform: translateX(4px); }
-    .option-btn.selected { background: linear-gradient(135deg, #2a1e08, #1e1408); border-color: #f59e0b; color: white; }
+    .option-btn:hover  { background: #0a1e10; border-color: #10b981; color: #d1fae5; transform: translateX(4px); }
+    .option-btn.selected { background: linear-gradient(135deg, #0a2010, #061a0e); border-color: #10b981; color: #d1fae5; }
     .option-icon { font-size: 22px; flex-shrink: 0; }
 
-    /* RESULT */
-    .result-inner { text-align: center; }
+    /* ── RESULT ── */
+    .result-card {
+      background: #04120a;
+      border: 1px solid #1a3a22;
+      border-radius: 24px;
+      padding: 32px 26px;
+      box-shadow: 0 8px 40px #10b9810a;
+    }
+    .result-hero { text-align: center; margin-bottom: 20px; }
     .result-emoji { font-size: 80px; display: block; margin-bottom: 16px; animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both; }
     @keyframes popIn { from { transform: scale(0) rotate(-10deg); } to { transform: scale(1) rotate(0deg); } }
     .result-badge {
       display: inline-block; padding: 6px 20px; border-radius: 50px;
       font-size: 12px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 14px;
+      border: 1px solid;
     }
     .result-title { font-size: 26px; font-weight: 800; line-height: 1.3; margin-bottom: 10px; }
-    .result-about { background: #0e0d08; border: 1px solid #3a2a10; border-radius: 50px; padding: 8px 20px; display: inline-block; font-size: 13px; color: #a08050; margin-bottom: 16px; }
-    .result-sub { font-size: 14px; color: #78624a; line-height: 1.8; margin-bottom: 22px; }
+    .result-about {
+      display: inline-block; background: #0a1e10; border: 1px solid #1a3a22;
+      border-radius: 50px; padding: 6px 18px;
+      font-size: 13px; color: #4a7a58; margin-bottom: 12px;
+      max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .result-sub { font-size: 14px; color: #3a6a48; line-height: 1.85; }
 
-    .meter-wrap { margin-bottom: 24px; }
-    .meter-labels { display: flex; justify-content: space-between; font-size: 12px; color: #78624a; margin-bottom: 8px; }
-    .meter { width: 100%; height: 10px; background: #1e180a; border-radius: 5px; overflow: hidden; position: relative; }
+    .meter-wrap { margin: 22px 0; }
+    .meter-labels { display: flex; justify-content: space-between; font-size: 12px; color: #3a6a48; margin-bottom: 8px; }
+    .meter { width: 100%; height: 10px; background: #0a1e10; border-radius: 5px; overflow: visible; position: relative; }
     .meter-fill { height: 100%; border-radius: 5px; transition: width 1s cubic-bezier(0.34, 1.56, 0.64, 1); }
     .meter-marker {
       position: absolute; top: -4px; width: 18px; height: 18px;
-      background: #fbbf24; border-radius: 50%;
-      box-shadow: 0 0 8px #fbbf24;
+      border-radius: 50%;
       transition: left 1s cubic-bezier(0.34, 1.56, 0.64, 1);
       transform: translateX(-50%);
     }
 
-    .factors {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 22px;
-    }
-    .factor {
-      background: #0e0d08; border: 1px solid #3a2a10; border-radius: 12px;
-      padding: 12px; text-align: center;
-    }
-    .factor-label { font-size: 11px; color: #5a4a30; font-weight: 700; margin-bottom: 4px; }
-    .factor-val { font-size: 14px; font-weight: 700; }
-
     .advice {
-      background: linear-gradient(135deg, #1e1408, #140e04);
-      border: 1px solid #f59e0b22;
+      background: linear-gradient(135deg, #0a2010, #061a0e);
+      border: 1px solid #10b98122;
       border-radius: 16px; padding: 18px; margin-bottom: 24px; text-align: left;
     }
-    .advice-title { font-size: 11px; color: #f59e0b88; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 8px; }
-    .advice-text { font-size: 14px; color: #a08050; line-height: 1.8; }
+    .advice-title { font-size: 11px; color: #10b98188; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 8px; }
+    .advice-text { font-size: 14px; color: #4a7a58; line-height: 1.85; }
 
     .action-btns { display: flex; flex-direction: column; gap: 10px; }
     .primary-btn {
-      background: linear-gradient(135deg, #d97706, #f59e0b);
+      background: linear-gradient(135deg, #059669, #10b981);
       color: white; border: none;
       padding: 14px; border-radius: 14px;
       font-size: 16px; font-weight: 700; cursor: pointer;
       transition: all 0.2s; font-family: inherit;
     }
-    .primary-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px #f59e0b44; }
+    .primary-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px #10b98144; }
     .secondary-btn {
-      background: #0e0d08; color: #a08050;
-      border: 1.5px solid #3a2a10;
+      background: #020d08; color: #4a7a58;
+      border: 1.5px solid #1a3a22;
       padding: 14px; border-radius: 14px;
       font-size: 15px; font-weight: 600; cursor: pointer;
       transition: all 0.2s; font-family: inherit;
     }
-    .secondary-btn:hover { border-color: #f59e0b44; color: #fef3c7; }
+    .secondary-btn:hover { border-color: #10b98144; color: #d1fae5; }
 
-    .start-btn {
-      background: linear-gradient(135deg, #d97706, #f59e0b);
-      color: white; border: none;
-      padding: 16px 48px; border-radius: 50px;
-      font-size: 18px; font-weight: 700; cursor: pointer;
-      transition: all 0.3s; font-family: inherit;
-      box-shadow: 0 6px 24px #f59e0b33;
-    }
-    .start-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 32px #f59e0b55; }
-    .start-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+    /* ── VERDICT THEMES ── */
+    .verdict-no  .result-badge  { background: #1e0a0a; color: #f87171; border-color: #f8717133; }
+    .verdict-no  .result-title  { color: #f87171; }
+    .verdict-no  .meter-fill    { background: linear-gradient(90deg, #991b1b, #f87171); }
+    .verdict-no  .meter-marker  { background: #f87171; box-shadow: 0 0 8px #f87171; }
 
+    .verdict-wait .result-badge { background: #1e140a; color: #fbbf24; border-color: #fbbf2433; }
+    .verdict-wait .result-title { color: #fbbf24; }
+    .verdict-wait .meter-fill   { background: linear-gradient(90deg, #92400e, #fbbf24); }
+    .verdict-wait .meter-marker { background: #fbbf24; box-shadow: 0 0 8px #fbbf24; }
+
+    .verdict-yes  .result-badge { background: #0a1e0a; color: #4ade80; border-color: #4ade8033; }
+    .verdict-yes  .result-title { color: #4ade80; }
+    .verdict-yes  .meter-fill   { background: linear-gradient(90deg, #166534, #4ade80); }
+    .verdict-yes  .meter-marker { background: #4ade80; box-shadow: 0 0 8px #4ade80; }
+
+    .verdict-now  .result-badge { background: #0a1e12; color: #34d399; border-color: #34d39933; }
+    .verdict-now  .result-title { color: #34d399; }
+    .verdict-now  .meter-fill   { background: linear-gradient(90deg, #059669, #34d399); }
+    .verdict-now  .meter-marker { background: #34d399; box-shadow: 0 0 8px #34d399; }
+
+    /* ── TOAST ── */
     .toast {
       position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(80px);
-      background: #141208; border: 1px solid #f59e0b44; color: #fbbf24;
+      background: #04120a; border: 1px solid #10b98144; color: #34d399;
       padding: 12px 24px; border-radius: 50px; font-size: 14px; font-weight: 600;
       z-index: 999; transition: transform 0.3s; pointer-events: none;
     }
     .toast.show { transform: translateX(-50%) translateY(0); }
-
-    /* 결과 등급 */
-    .verdict-no .result-badge { background: #1e0a0a; color: #f87171; }
-    .verdict-no .result-title { color: #f87171; }
-    .verdict-no .meter-fill { background: linear-gradient(90deg, #991b1b, #f87171); }
-
-    .verdict-wait .result-badge { background: #1e140a; color: #fbbf24; }
-    .verdict-wait .result-title { color: #fbbf24; }
-    .verdict-wait .meter-fill { background: linear-gradient(90deg, #92400e, #f59e0b); }
-
-    .verdict-yes .result-badge { background: #0a1e0a; color: #4ade80; }
-    .verdict-yes .result-title { color: #4ade80; }
-    .verdict-yes .meter-fill { background: linear-gradient(90deg, #166534, #4ade80); }
-
-    .verdict-now .result-badge { background: #0a1a2a; color: #60a5fa; }
-    .verdict-now .result-title { color: #60a5fa; }
-    .verdict-now .meter-fill { background: linear-gradient(90deg, #1e3a8a, #60a5fa); }
   </style>
-  <script type="text/javascript" src="//t1.kakaocdn.net/kas/static/ba.min.js" async></script>
 </head>
 <body>
+
+<div class="particles" id="particles"></div>
 
 <div class="container">
   <!-- INTRO -->
   <div id="screen-intro">
-    <div class="intro">
-      <span class="icon">⚖️</span>
-      <h1>이 결정,<br>해야 해 말아야 해?</h1>
-      <p>고민되는 결정이 있어?<br><strong>10가지 질문</strong>으로<br>해야 할지 말지 판단해줄게.<br><br>뭐든 입력해봐. 진지하게 봐줄게.</p>
+    <div class="intro-card">
+      <span class="intro-icon">⚖️</span>
+      <div class="intro-title">이 결정,<br>해야 해 말아야 해?</div>
+      <div class="intro-tagline">결정 판정기</div>
+      <div class="intro-desc">
+        고민되는 결정이 있어?<br>
+        <strong>10가지 질문</strong>으로<br>
+        해야 할지 말지 판단해줄게.<br>
+        뭐든 입력해봐. 진지하게 봐줄게.
+      </div>
+      <div class="intro-note">💡 솔직하게 답해야 정확해</div>
       <button class="start-btn" onclick="showInput()">결정 넣기 →</button>
     </div>
   </div>
 
-  <!-- DECISION INPUT -->
-  <div class="input-screen" id="screen-input">
+  <!-- INPUT SCREEN -->
+  <div class="screen" id="screen-input">
     <div class="input-card">
       <h2>고민되는 결정이 뭐야?</h2>
       <p>짧게라도 적어봐. 질문할 때 보여줄게.</p>
@@ -269,19 +335,22 @@
         <span class="example-chip" onclick="setDecision('사과하기')">사과하기</span>
       </div>
       <div style="text-align:center">
-        <button class="start-btn" id="next-btn" onclick="startQuiz()" disabled>질문 시작 →</button>
+        <button class="start-btn" id="quiz-start-btn" onclick="startQuiz()" disabled>질문 시작 →</button>
       </div>
     </div>
   </div>
 
   <!-- QUIZ -->
-  <div id="screen-quiz" style="display:none">
-    <div class="progress-wrap">
-      <div class="progress-info">
-        <span class="progress-label">⚖️ 결정 분석 중</span>
-        <span class="progress-count" id="prog-count">1 / 10</span>
+  <div class="screen" id="screen-quiz">
+    <div class="quiz-header">
+      <button class="back-btn" id="back-btn" onclick="goBack()" disabled>←</button>
+      <div class="progress-wrap">
+        <div class="progress-info">
+          <span class="progress-label">⚖️ 결정 분석 중</span>
+          <span class="progress-count" id="prog-count">1 / 10</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
       </div>
-      <div class="progress-bar"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
     </div>
     <div class="card" id="qcard-wrap">
       <div class="decision-tag" id="decision-tag"></div>
@@ -290,27 +359,37 @@
   </div>
 
   <!-- RESULT -->
-  <div id="screen-result" style="display:none">
-    <div class="card" id="result-card"></div>
+  <div class="screen" id="screen-result">
+    <div class="result-card" id="result-card"></div>
   </div>
 </div>
 
 <div class="toast" id="toast">링크 복사됐어! 🔗</div>
 
 <script>
+  // Particles
+  const PARTICLES = ['💡','🌿','✨','🎯','💚','🍀','⭐'];
+  const pc = document.getElementById('particles');
+  for (let i = 0; i < 20; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.textContent = PARTICLES[i % PARTICLES.length];
+    p.style.left = Math.random() * 100 + '%';
+    p.style.setProperty('--dur', (7 + Math.random() * 8) + 's');
+    p.style.setProperty('--delay', (Math.random() * 9) + 's');
+    p.style.fontSize = (11 + Math.random() * 10) + 'px';
+    pc.appendChild(p);
+  }
+
   let decisionText = '';
-  let cur = 0, total = 0;
+  let cur = 0;
+  let answers = [];
 
   const input = document.getElementById('decision-input');
-  const nextBtn = document.getElementById('next-btn');
-  input.addEventListener('input', () => {
-    nextBtn.disabled = input.value.trim().length === 0;
-  });
+  const quizStartBtn = document.getElementById('quiz-start-btn');
+  input.addEventListener('input', () => { quizStartBtn.disabled = input.value.trim().length === 0; });
 
-  function setDecision(val) {
-    input.value = val;
-    nextBtn.disabled = false;
-  }
+  function setDecision(val) { input.value = val; quizStartBtn.disabled = false; }
 
   function showInput() {
     document.getElementById('screen-intro').style.display = 'none';
@@ -320,8 +399,8 @@
   const questions = [
     { emoji: '⏳', text: '이걸 얼마나 오래 생각해왔어?',
       options: [
-        { icon: '⚡', text: '오늘 처음 생각했어', score: 0 },
-        { icon: '📅', text: '며칠~몇 주 됐어', score: 1 },
+        { icon: '⚡',  text: '오늘 처음 생각했어', score: 0 },
+        { icon: '📅',  text: '며칠~몇 주 됐어', score: 1 },
         { icon: '🗓️', text: '꽤 오래 고민해온 거야', score: 2 },
       ]},
     { emoji: '🚪', text: '지금 안 하면 기회가 사라져?',
@@ -356,9 +435,9 @@
       ]},
     { emoji: '🧠', text: '직감이 뭐라고 해?',
       options: [
-        { icon: '🛑', text: '하지 말라고', score: 0 },
+        { icon: '🛑',       text: '하지 말라고', score: 0 },
         { icon: '😶‍🌫️', text: '잘 모르겠어', score: 1 },
-        { icon: '✨', text: '하라고', score: 2 },
+        { icon: '✨',       text: '하라고', score: 2 },
       ]},
     { emoji: '😨', text: '망설이는 가장 큰 이유가 뭐야?',
       options: [
@@ -369,8 +448,8 @@
     { emoji: '🔭', text: '1년 후에 이 결정을 돌아보면?',
       options: [
         { icon: '😮‍💨', text: '안 한 게 맞았다고 생각할 것 같아', score: 0 },
-        { icon: '🌀', text: '어떻게 됐을지 모르겠어', score: 1 },
-        { icon: '🌟', text: '했다면 잘한 거라고 생각할 것 같아', score: 2 },
+        { icon: '🌀',    text: '어떻게 됐을지 모르겠어', score: 1 },
+        { icon: '🌟',    text: '했다면 잘한 거라고 생각할 것 같아', score: 2 },
       ]},
     { emoji: '❤️', text: '솔직히 하고 싶어?',
       options: [
@@ -381,45 +460,42 @@
   ];
 
   const verdicts = [
-    { cls: 'verdict-no', emoji: '🛑', badge: '지금은 아니야', title: '하지 마',
+    { cls: 'verdict-no',   emoji: '🛑', badge: '지금은 아니야',   title: '하지 마',
       sub: '지금 이 결정은 때가 아닌 것 같아.\n억지로 밀어붙이면 더 힘들어질 수 있어.',
-      advice: '안 하는 것도 결정이야. 지금은 더 준비하거나 더 좋은 타이밍을 기다리는 게 나을 것 같아.',
-      fA: '준비도', fAV: '아직 부족', fB: '타이밍', fBV: '지금은 아님' },
+      advice: '안 하는 것도 결정이야. 지금은 더 준비하거나 더 좋은 타이밍을 기다리는 게 나을 것 같아.' },
     { cls: 'verdict-wait', emoji: '🤔', badge: '좀 더 생각해봐', title: '아직 확신이 없어',
       sub: '완전 나쁜 것도 아니고 완전 좋은 것도 아니야.\n조건이 좀 더 갖춰지면 더 명확해질 것 같아.',
-      advice: '한 가지만 더 생각해봐: 지금 망설이는 게 두려움 때문인지, 진짜 준비 부족 때문인지.',
-      fA: '가능성', fAV: '반반', fB: '타이밍', fBV: '더 생각해봐' },
-    { cls: 'verdict-yes', emoji: '✅', badge: '해봐', title: '준비된 것 같아',
+      advice: '한 가지만 더 생각해봐: 지금 망설이는 게 두려움 때문인지, 진짜 준비 부족 때문인지.' },
+    { cls: 'verdict-yes',  emoji: '✅', badge: '해봐',           title: '준비된 것 같아',
       sub: '분석해보니 해볼 만한 결정이야.\n실패해도 수습할 수 있고, 안 하면 후회할 것 같아.',
-      advice: '망설이는 이유가 두려움이라면, 두려움은 준비가 덜 된 게 아니라 중요하다는 신호야. 해봐.',
-      fA: '가능성', fAV: '충분해', fB: '타이밍', fBV: '지금이야' },
-    { cls: 'verdict-now', emoji: '🚀', badge: '당장 해', title: '뭘 망설여?',
+      advice: '망설이는 이유가 두려움이라면, 두려움은 준비가 덜 된 게 아니라 중요하다는 신호야. 해봐.' },
+    { cls: 'verdict-now',  emoji: '🚀', badge: '당장 해',        title: '뭘 망설여?',
       sub: '이건 그냥 용기 문제야.\n조건도 되고, 직감도 그렇고, 후회도 할 것 같잖아.',
-      advice: '나중에 하려고 아껴두는 건 없어. 지금이 최적의 타이밍이야. 오늘 당장 첫 걸음만 내딛어.',
-      fA: '가능성', fAV: '매우 높음', fB: '타이밍', fBV: '지금 당장' },
+      advice: '나중에 하려고 아껴두는 건 없어. 지금이 최적의 타이밍이야. 오늘 당장 첫 걸음만 내딛어.' },
   ];
 
   function startQuiz() {
-    decisionText = document.getElementById('decision-input').value.trim();
+    decisionText = input.value.trim();
     document.getElementById('screen-input').classList.remove('active');
-    document.getElementById('screen-quiz').style.display = 'block';
+    document.getElementById('screen-quiz').classList.add('active');
     document.getElementById('decision-tag').innerHTML = `🤔 "${decisionText}"`;
-    cur = 0; total = 0;
+    cur = 0; answers = [];
     renderQ(0);
   }
 
   function renderQ(idx) {
     const q = questions[idx];
     document.getElementById('prog-fill').style.width = (idx / questions.length * 100) + '%';
-    document.getElementById('prog-count').textContent = `${idx+1} / ${questions.length}`;
+    document.getElementById('prog-count').textContent = `${idx + 1} / ${questions.length}`;
+    document.getElementById('back-btn').disabled = idx === 0;
     const card = document.getElementById('qcard');
     card.style.animation = 'none'; card.offsetHeight; card.style.animation = '';
     card.innerHTML = `
       <span class="q-emoji">${q.emoji}</span>
-      <div class="q-num">질문 ${idx+1}</div>
+      <div class="q-num">질문 ${idx + 1}</div>
       <div class="q-text">${q.text}</div>
       <div class="options">
-        ${q.options.map((o,i) => `
+        ${q.options.map((o, i) => `
           <button class="option-btn" onclick="pick(${i}, ${o.score})">
             <span class="option-icon">${o.icon}</span>
             <span>${o.text}</span>
@@ -427,10 +503,10 @@
       </div>`;
   }
 
-  function pick(idx, score) {
+  function pick(optIdx, score) {
     document.querySelectorAll('.option-btn').forEach(b => b.style.pointerEvents = 'none');
-    document.querySelectorAll('.option-btn')[idx].classList.add('selected');
-    total += score;
+    document.querySelectorAll('.option-btn')[optIdx].classList.add('selected');
+    answers[cur] = score;
     setTimeout(() => {
       cur++;
       if (cur < questions.length) renderQ(cur);
@@ -438,10 +514,22 @@
     }, 380);
   }
 
-  function showResult() {
-    document.getElementById('screen-quiz').style.display = 'none';
-    document.getElementById('screen-result').style.display = 'block';
+  function goBack() {
+    if (cur === 0) {
+      document.getElementById('screen-quiz').classList.remove('active');
+      document.getElementById('screen-input').classList.add('active');
+    } else {
+      answers.length = cur - 1;
+      cur--;
+      renderQ(cur);
+    }
+  }
 
+  function showResult() {
+    document.getElementById('screen-quiz').classList.remove('active');
+    document.getElementById('screen-result').classList.add('active');
+
+    const total = answers.reduce((a, b) => a + b, 0);
     let vi;
     if (total <= 5) vi = 0;
     else if (total <= 10) vi = 1;
@@ -450,53 +538,35 @@
 
     const v = verdicts[vi];
     const pct = Math.round((total / 20) * 100);
-    const card = document.getElementById('result-card');
-    card.innerHTML = `
-      <div class="result-inner ${v.cls}">
+
+    document.getElementById('result-card').innerHTML = `
+      <div class="result-hero ${v.cls}">
         <span class="result-emoji">${v.emoji}</span>
         <div class="result-badge">${v.badge}</div>
         <div class="result-title">${v.title}</div>
         <div class="result-about">🤔 "${decisionText}"</div>
-        <div class="result-sub">${v.sub.replace('\n','<br>')}</div>
-        <div class="meter-wrap">
-          <div class="meter-labels"><span>하지 마</span><span>판정 ${pct}점</span><span>당장 해</span></div>
-          <div class="meter">
-            <div class="meter-fill" id="mfill" style="width:0%"></div>
-            <div class="meter-marker" id="mmark" style="left:0%"></div>
-          </div>
+        <div class="result-sub">${v.sub.replace('\n', '<br>')}</div>
+      </div>
+      <div class="meter-wrap ${v.cls}">
+        <div class="meter-labels"><span>하지 마</span><span>${pct}점</span><span>당장 해</span></div>
+        <div class="meter">
+          <div class="meter-fill" id="mfill" style="width:0%"></div>
+          <div class="meter-marker" id="mmark" style="left:0%"></div>
         </div>
-        <div class="factors">
-          <div class="factor">
-            <div class="factor-label">${v.fA}</div>
-            <div class="factor-val" style="color:#fbbf24">${v.fAV}</div>
-          </div>
-          <div class="factor">
-            <div class="factor-label">${v.fB}</div>
-            <div class="factor-val" style="color:#fbbf24">${v.fBV}</div>
-          </div>
-          <div class="factor">
-            <div class="factor-label">후회 가능성</div>
-            <div class="factor-val" style="color:#fbbf24">${pct >= 60 ? '높음' : pct >= 40 ? '보통' : '낮음'}</div>
-          </div>
-          <div class="factor">
-            <div class="factor-label">최종 점수</div>
-            <div class="factor-val" style="color:#fbbf24">${total} / 20</div>
-          </div>
-        </div>
-        <div class="advice">
-          <div class="advice-title">💡 결정에 도움이 될 한마디</div>
-          <div class="advice-text">${v.advice}</div>
-        </div>
-        <div style="text-align:center;margin:24px 0 8px">
-          <ins class="kakao_ad_area" style="display:none;"
-            data-ad-unit="DAN-PVu656ucRpjzw2zW"
-            data-ad-width="320"
-            data-ad-height="50"></ins>
-        </div>
-        <div class="action-btns">
-          <button class="primary-btn" onclick="retry()">🔄 다른 결정 넣기</button>
-          <button class="secondary-btn" onclick="copyResult()">🔗 공유하기</button>
-        </div>
+      </div>
+      <div class="advice">
+        <div class="advice-title">💡 결정에 도움이 될 한마디</div>
+        <div class="advice-text">${v.advice}</div>
+      </div>
+      <div style="text-align:center;margin:0 0 20px">
+        <ins class="kakao_ad_area" style="display:none;"
+          data-ad-unit="DAN-PVu656ucRpjzw2zW"
+          data-ad-width="320"
+          data-ad-height="50"></ins>
+      </div>
+      <div class="action-btns">
+        <button class="primary-btn" onclick="retry()">🔄 다른 결정 넣기</button>
+        <button class="secondary-btn" onclick="copyResult()">🔗 공유하기</button>
       </div>`;
 
     setTimeout(() => {
@@ -505,14 +575,16 @@
       if (mf) mf.style.width = pct + '%';
       if (mm) mm.style.left = pct + '%';
     }, 300);
+
+    if (vi === 3) launchConfetti();
   }
 
   function retry() {
-    cur = 0; total = 0;
-    document.getElementById('screen-result').style.display = 'none';
-    document.getElementById('screen-input').classList.add('active');
-    document.getElementById('decision-input').value = '';
-    document.getElementById('next-btn').disabled = true;
+    answers = []; cur = 0;
+    document.getElementById('screen-result').classList.remove('active');
+    document.getElementById('screen-intro').style.display = '';
+    input.value = '';
+    quizStartBtn.disabled = true;
   }
 
   function copyResult() {
@@ -522,6 +594,26 @@
       setTimeout(() => t.classList.remove('show'), 2500);
     });
   }
+
+  function launchConfetti() {
+    const colors = ['#10b981','#34d399','#6ee7b7','#a7f3d0','#059669','#fbbf24'];
+    for (let i = 0; i < 70; i++) {
+      setTimeout(() => {
+        const c = document.createElement('div');
+        const size = 6 + Math.random() * 7;
+        c.style.cssText = `
+          position:fixed; pointer-events:none; z-index:100;
+          left:${Math.random() * 100}vw; top:-12px;
+          width:${size}px; height:${size}px;
+          background:${colors[Math.floor(Math.random() * colors.length)]};
+          border-radius:${Math.random() > 0.5 ? '50%' : '2px'};
+          animation:confettiFall ${1.5 + Math.random() * 2}s ease-in forwards;`;
+        document.body.appendChild(c);
+        setTimeout(() => c.remove(), 4000);
+      }, i * 35);
+    }
+  }
 </script>
+<script async src="//t1.kakaocdn.net/kas/static/ba.min.js" charset="utf-8"></script>
 </body>
 </html>
